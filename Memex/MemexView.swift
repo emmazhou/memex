@@ -172,20 +172,6 @@ struct MemexView: View {
                         Spacer()
                         
                         Button(action: {
-                            editingMessage = nil
-                            editingTime = nil
-                            editingText = nil
-                        }) {
-                            Image(systemName: "xmark")
-                                .imageScale(.large)
-                                .foregroundColor(.white)
-                        }
-                        .padding(10)
-                        .foregroundColor(.white)
-                        .background(midGradient)
-                        .cornerRadius(10)
-                        
-                        Button(action: {
                             if editingTime != nil {
                                 editingMessage!.time = editingTime!
                             } else {
@@ -202,6 +188,20 @@ struct MemexView: View {
                             editingText = nil
                         }) {
                             Image(systemName: "checkmark")
+                                .imageScale(.large)
+                                .foregroundColor(.white)
+                        }
+                        .padding(10)
+                        .foregroundColor(.white)
+                        .background(midGradient)
+                        .cornerRadius(10)
+                        
+                        Button(action: {
+                            editingMessage = nil
+                            editingTime = nil
+                            editingText = nil
+                        }) {
+                            Image(systemName: "xmark")
                                 .imageScale(.large)
                                 .foregroundColor(.white)
                         }
@@ -235,6 +235,27 @@ struct MemexView: View {
                                 .foregroundColor(.white)
                         }
                         .padding(10)
+                        .foregroundColor(.white)
+                        .background(midGradient)
+                        .cornerRadius(10)
+                        
+                        Button(action: {
+                            if memex.fileUrl == nil {
+                                return
+                            }
+                            let viewController = UIActivityViewController(
+                                activityItems: [memex.fileUrl!], applicationActivities: nil
+                            )
+                            UIApplication.shared.windows.first?.rootViewController?.present(
+                                viewController, animated: true, completion: nil
+                            )
+                        }) {
+                            Image(systemName: "square.and.arrow.up")
+                                .imageScale(.large)
+                                .foregroundColor(.white)
+                        }
+                        .padding([.top, .bottom], 7)
+                        .padding([.leading, .trailing], 10)
                         .foregroundColor(.white)
                         .background(midGradient)
                         .cornerRadius(10)
