@@ -7,90 +7,167 @@
 
 import Foundation
 
-typealias MemexMessage = (
-    time: Date,
-    text: String,
-    comment: String?
-)
+struct MemexMessage: Identifiable {
+    var id = UUID()
+    var time: Date
+    var text: String
+    var comment: String?
+}
+
+struct MemexMessageList: Identifiable {
+    var id = UUID()
+    var date: Date
+    var messages: [MemexMessage]
+}
 
 class Memex: NSObject, ObservableObject {
     static let shared = Memex()
     
-    @Published var messages: [MemexMessage] = []
+    @Published var messagesByDate: [MemexMessageList] = []
 
+    var fileUrl: URL?
     var fileHandle: FileHandle?
-    var dateFormatter: DateFormatter?
+    var isoFormatter: DateFormatter?
 
     override init() {
         super.init()
 
-        dateFormatter = DateFormatter()
-        dateFormatter!.locale = Locale(identifier: "en_US_POSIX")
-        dateFormatter!.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
+        isoFormatter = DateFormatter()
+        isoFormatter!.locale = Locale(identifier: "en_US_POSIX")
+        isoFormatter!.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
 
+        initializeFile()
+        loadMessages()
+    }
+            
+    // MARK: File I/O
+    
+    func initializeFile() {
         let documentsPath = NSSearchPathForDirectoriesInDomains(
             .documentDirectory, .userDomainMask, true
         ).first!
 
         let documentsUrl = NSURL(fileURLWithPath: documentsPath)
-        if let pathComponent = documentsUrl.appendingPathComponent("memex.txt") {
+        fileUrl = documentsUrl.appendingPathComponent("memex.txt")
 
-            // create file if it doesn't exist
-            let filePath = pathComponent.path
-            let fileManager = FileManager.default
-            if !fileManager.fileExists(atPath: filePath) {
-                FileManager.default.createFile(
-                    atPath: filePath,
-                    contents: nil,
-                    attributes: nil)
-            }
-            fileHandle = FileHandle(forWritingAtPath: filePath)
-            fileHandle?.seekToEndOfFile()
-            
-            // initialize messages with contents of file
-            do {
-                let fileContents = try String(contentsOf: pathComponent, encoding: .utf8)
-                for line in fileContents.split(separator: "\n") {
-                    let trimmed = strip(String(line))
-                    if trimmed != "" {
-                        let (text, comment) = extractComment(trimmed)
-                        let (message, date) = extractDate(text)
-                        messages.append(MemexMessage(
-                            time: date,
-                            text: message,
-                            comment: comment
-                        ))
-                    }
+        // create file if it doesn't exist
+        let filePath = fileUrl!.path
+        let fileManager = FileManager.default
+        if !fileManager.fileExists(atPath: filePath) {
+            FileManager.default.createFile(
+                atPath: filePath,
+                contents: nil,
+                attributes: nil)
+        }
+        fileHandle = FileHandle(forWritingAtPath: filePath)
+    }
+    
+    func loadMessages() {
+        var messages: [MemexMessage] = []
+        
+        do {
+            let fileContents = try String(contentsOf: fileUrl!, encoding: .utf8)
+            for line in fileContents.split(separator: "\n") {
+                let trimmed = Util.strip(String(line))
+                if trimmed != "" {
+                    let (text, comment) = extractComment(trimmed)
+                    let (message, time) = extractTime(text)
+                    messages.append(
+                        MemexMessage(time: time, text: message, comment: comment)
+                    )
                 }
-            } catch {
-                print("Error reading from file")
             }
+        } catch {
+            print("Error reading from file")
+            return
+        }
+        
+        messagesByDate = groupMessagesByDate(messages: messages)
+    }
+    
+    func writeMessages(messages: [MemexMessage]) {
+        fileHandle?.truncateFile(atOffset: 0)
+        
+        for message in messages {
+            let line = "\(serialize(message.text, message.time, message.comment))\n"
+            fileHandle!.seekToEndOfFile()
+            fileHandle!.write(line.data(using: .utf8)!)
+        }
+        loadMessages()
+    }
+    
+    // MARK: Grouping / Ungrouping
+    
+    func groupMessagesByDate(messages: [MemexMessage]) -> [MemexMessageList] {
+        let calendar = Calendar(identifier: .gregorian)
+        var byDate: [MemexMessageList] = []
+
+        let groupedMessages = Dictionary.init(grouping: messages) { (message) -> Date in
+            return calendar.startOfDay(for: message.time)
+        }
+        groupedMessages.keys.sorted().forEach { (key) in
+            byDate.append(
+                MemexMessageList(date: key, messages: groupedMessages[key] ?? [])
+            )
+        }
+        return byDate
+    }
+    
+    func flattenMessages() -> [MemexMessage] {
+        return Array(messagesByDate.map { $0.messages }.joined()).sorted {
+            $1.time > $0.time
         }
     }
+        
+    // MARK: Message manipulation
     
     func addMessage(message: String) {
         let (text, comment) = extractComment(message)
         if text == "" {
             return
         }
-
-        let date = Date()
-
-        messages.append(
-            MemexMessage(
-                time: date,
-                text: text,
-                comment: comment
-            )
-        )
         
-        var line = "\(text) on \(dateFormatter!.string(from: date))"
+        var flatMessages = flattenMessages()
+        flatMessages.append(
+            MemexMessage(time: Date(), text: text, comment: comment)
+        )
+        writeMessages(messages: flatMessages)
+    }
+    
+    func editMessage(edited: MemexMessage) {
+        var flatMessages = flattenMessages()
+        for (index, message) in flatMessages.enumerated() {
+            if message.id == edited.id {
+                flatMessages[index] = edited
+            }
+        }
+        writeMessages(messages: flatMessages)
+    }
+    
+    func deleteMessage(uuid: UUID) {
+        var flatMessages = flattenMessages()
+        flatMessages.removeAll { (message) -> Bool in
+            message.id == uuid
+        }
+        writeMessages(messages: flatMessages)
+    }
+        
+    // MARK: Serialize / Deserialize
+
+    func serialize(_ text: String, _ time: Date, _ comment: String?) -> String {
+        var line = "\(text) on \(isoFormatter!.string(from: time))"
         if (comment != nil) {
             line.append(" # \(comment!)")
         }
-        line.append("\n")
-        
-        fileHandle?.write(line.data(using: .utf8)!)
+        return line
+    }
+    
+    func getTextAndComment(_ message: MemexMessage) -> String {
+        var messageString = "\(message.text)"
+        if (message.comment != nil) {
+            messageString.append(" # \(message.comment!)")
+        }
+        return messageString
     }
     
     func extractComment(_ message: String) -> (String, String?) {
@@ -99,38 +176,19 @@ class Memex: NSObject, ObservableObject {
         
         var components = text.components(separatedBy: "#")
         if components.count > 1 {
-            comment = strip(components.removeLast())
+            comment = Util.strip(components.removeLast())
             text = components.joined(separator: "#")
         }
-        text = strip(text)
+        text = Util.strip(text)
         
         return (text, comment)
     }
     
-    func extractDate(_ text: String) -> (String, Date) {
+    func extractTime(_ text: String) -> (String, Date) {
         var components = text.components(separatedBy: " on ")
-        let dateString = components.removeLast()
-        let date = dateFormatter!.date(from: dateString)!
+        let timeString = components.removeLast()
+        let time = isoFormatter!.date(from: timeString)!
         
-        return (components.joined(separator: " on "), date)
+        return (components.joined(separator: " on "), time)
     }
-    
-    func strip(_ text: String) -> String {
-        return text.trimmingCharacters(in: .whitespacesAndNewlines)
-    }
-    
-    func dateFromDate(date: Date) -> String {
-        let formatter = DateFormatter()
-        formatter.timeStyle = .none
-        formatter.dateStyle = .medium
-        return formatter.string(from: date)
-    }
-    
-    func timeFromDate(date: Date) -> String {
-        let formatter = DateFormatter()
-        formatter.timeStyle = .short
-        formatter.dateStyle = .none
-        return formatter.string(from: date)
-    }
-
 }

@@ -12,6 +12,7 @@
 		C8292A462533FC6D006E5A1F /* Main.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8292A452533FC6D006E5A1F /* Main.swift */; };
 		C8292A4A2533FC92006E5A1F /* MemexView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8292A492533FC92006E5A1F /* MemexView.swift */; };
 		C86EC68F25369F2E00005402 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C86EC68E25369F2E00005402 /* Assets.xcassets */; };
+		C8819BD02537A5500094B22F /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8819BCF2537A5500094B22F /* Util.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		C8292A452533FC6D006E5A1F /* Main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Main.swift; sourceTree = "<group>"; };
 		C8292A492533FC92006E5A1F /* MemexView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemexView.swift; sourceTree = "<group>"; };
 		C86EC68E25369F2E00005402 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		C8819BCF2537A5500094B22F /* Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +62,7 @@
 				C8292A3B2533FB1F006E5A1F /* Info.plist */,
 				C86EC68E25369F2E00005402 /* Assets.xcassets */,
 				C8292A382533FB1F006E5A1F /* Preview Content */,
+				C8819BCF2537A5500094B22F /* Util.swift */,
 			);
 			path = Memex;
 			sourceTree = "<group>";
@@ -88,6 +91,8 @@
 			dependencies = (
 			);
 			name = Memex;
+			packageProductDependencies = (
+			);
 			productName = Memex;
 			productReference = C8292A2F2533FB1D006E5A1F /* Memex.app */;
 			productType = "com.apple.product-type.application";
@@ -115,6 +120,8 @@
 				Base,
 			);
 			mainGroup = C8292A262533FB1D006E5A1F;
+			packageReferences = (
+			);
 			productRefGroup = C8292A302533FB1D006E5A1F /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -144,6 +151,7 @@
 				C8292A4A2533FC92006E5A1F /* MemexView.swift in Sources */,
 				C8292A432533FC2F006E5A1F /* Memex.swift in Sources */,
 				C8292A462533FC6D006E5A1F /* Main.swift in Sources */,
+				C8819BD02537A5500094B22F /* Util.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
