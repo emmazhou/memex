@@ -39,6 +39,10 @@ class Memex: NSObject, ObservableObject {
         initializeFile()
         loadMessages()
     }
+    
+    func lastMessageId() -> UUID? {
+        return messagesByDate.last?.messages.last?.id
+    }
             
     // MARK: File I/O
     

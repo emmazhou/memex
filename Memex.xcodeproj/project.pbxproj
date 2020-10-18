@@ -7,21 +7,29 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C8292A3A2533FB1F006E5A1F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C8292A392533FB1F006E5A1F /* Preview Assets.xcassets */; };
 		C8292A432533FC2F006E5A1F /* Memex.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8292A422533FC2F006E5A1F /* Memex.swift */; };
 		C8292A462533FC6D006E5A1F /* Main.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8292A452533FC6D006E5A1F /* Main.swift */; };
 		C8292A4A2533FC92006E5A1F /* MemexView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8292A492533FC92006E5A1F /* MemexView.swift */; };
+		C831EC01253BD18D00003546 /* Styles.swift in Sources */ = {isa = PBXBuildFile; fileRef = C831EC00253BD18D00003546 /* Styles.swift */; };
+		C831EC07253BDCC600003546 /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C831EC06253BDCC600003546 /* MessageView.swift */; };
+		C831EC0A253BDCFC00003546 /* EditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C831EC09253BDCFC00003546 /* EditView.swift */; };
+		C831EC0E253BDD2200003546 /* InputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C831EC0D253BDD2200003546 /* InputView.swift */; };
+		C831EC15253C043A00003546 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C831EC14253C043900003546 /* SettingsView.swift */; };
 		C86EC68F25369F2E00005402 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C86EC68E25369F2E00005402 /* Assets.xcassets */; };
 		C8819BD02537A5500094B22F /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8819BCF2537A5500094B22F /* Util.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		C8292A2F2533FB1D006E5A1F /* Memex.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Memex.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		C8292A392533FB1F006E5A1F /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		C8292A3B2533FB1F006E5A1F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C8292A422533FC2F006E5A1F /* Memex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Memex.swift; sourceTree = "<group>"; };
 		C8292A452533FC6D006E5A1F /* Main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Main.swift; sourceTree = "<group>"; };
 		C8292A492533FC92006E5A1F /* MemexView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemexView.swift; sourceTree = "<group>"; };
+		C831EC00253BD18D00003546 /* Styles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Styles.swift; sourceTree = "<group>"; };
+		C831EC06253BDCC600003546 /* MessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
+		C831EC09253BDCFC00003546 /* EditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditView.swift; sourceTree = "<group>"; };
+		C831EC0D253BDD2200003546 /* InputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputView.swift; sourceTree = "<group>"; };
+		C831EC14253C043900003546 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		C86EC68E25369F2E00005402 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C8819BCF2537A5500094B22F /* Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -56,23 +64,27 @@
 		C8292A312533FB1D006E5A1F /* Memex */ = {
 			isa = PBXGroup;
 			children = (
+				C831EC04253BDC7100003546 /* Views */,
 				C8292A452533FC6D006E5A1F /* Main.swift */,
 				C8292A422533FC2F006E5A1F /* Memex.swift */,
-				C8292A492533FC92006E5A1F /* MemexView.swift */,
+				C8819BCF2537A5500094B22F /* Util.swift */,
 				C8292A3B2533FB1F006E5A1F /* Info.plist */,
 				C86EC68E25369F2E00005402 /* Assets.xcassets */,
-				C8292A382533FB1F006E5A1F /* Preview Content */,
-				C8819BCF2537A5500094B22F /* Util.swift */,
 			);
 			path = Memex;
 			sourceTree = "<group>";
 		};
-		C8292A382533FB1F006E5A1F /* Preview Content */ = {
+		C831EC04253BDC7100003546 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				C8292A392533FB1F006E5A1F /* Preview Assets.xcassets */,
+				C8292A492533FC92006E5A1F /* MemexView.swift */,
+				C831EC06253BDCC600003546 /* MessageView.swift */,
+				C831EC09253BDCFC00003546 /* EditView.swift */,
+				C831EC0D253BDD2200003546 /* InputView.swift */,
+				C831EC14253C043900003546 /* SettingsView.swift */,
+				C831EC00253BD18D00003546 /* Styles.swift */,
 			);
-			path = "Preview Content";
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -137,7 +149,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				C86EC68F25369F2E00005402 /* Assets.xcassets in Resources */,
-				C8292A3A2533FB1F006E5A1F /* Preview Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -148,8 +159,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C831EC07253BDCC600003546 /* MessageView.swift in Sources */,
 				C8292A4A2533FC92006E5A1F /* MemexView.swift in Sources */,
 				C8292A432533FC2F006E5A1F /* Memex.swift in Sources */,
+				C831EC15253C043A00003546 /* SettingsView.swift in Sources */,
+				C831EC01253BD18D00003546 /* Styles.swift in Sources */,
+				C831EC0A253BDCFC00003546 /* EditView.swift in Sources */,
+				C831EC0E253BDD2200003546 /* InputView.swift in Sources */,
 				C8292A462533FC6D006E5A1F /* Main.swift in Sources */,
 				C8819BD02537A5500094B22F /* Util.swift in Sources */,
 			);
@@ -281,7 +297,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2;
-				DEVELOPMENT_ASSET_PATHS = "\"Memex/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = RZLVXECJZM;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Memex/Info.plist;
@@ -304,7 +320,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2;
-				DEVELOPMENT_ASSET_PATHS = "\"Memex/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = RZLVXECJZM;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Memex/Info.plist;

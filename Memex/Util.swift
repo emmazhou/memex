@@ -15,7 +15,7 @@ class Util {
     static func formatDate(date: Date) -> String {
         let formatter = DateFormatter()
         formatter.timeStyle = .none
-        formatter.dateStyle = .medium
+        formatter.dateFormat = "EEEE, MMM dd"
         return formatter.string(from: date)
     }
     
