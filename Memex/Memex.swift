@@ -145,7 +145,9 @@ class Memex: NSObject, ObservableObject {
                 flatMessages[index] = edited
             }
         }
-        writeMessages(messages: flatMessages)
+        writeMessages(messages: flatMessages.sorted {
+            $1.time > $0.time
+        })
     }
     
     func deleteMessage(uuid: UUID) {
