@@ -157,6 +157,14 @@ class Memex: NSObject, ObservableObject {
         }
         writeMessages(messages: flatMessages)
     }
+    
+    func deleteOldMessages() {
+        var flatMessages = flattenMessages()
+        flatMessages.removeAll { (message) -> Bool in
+            return message.time.timeIntervalSinceNow < -604800 // seconds in a week
+        }
+        writeMessages(messages: flatMessages)
+    }
         
     // MARK: Serialize / Deserialize
 

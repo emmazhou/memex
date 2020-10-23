@@ -6,10 +6,12 @@
 //
 
 import SwiftUI
+import Introspect
 
 struct EditView: View {
     @ObservedObject var memex = Memex.shared
     
+    @Binding var focus: Bool
     @Binding var editingMessage: MemexMessage?
     @Binding var editingTime: Date?
     @Binding var editingText: String?
@@ -37,6 +39,12 @@ struct EditView: View {
             .padding(8)
             .background(Styles.textFieldBackground)
             .cornerRadius(10)
+            .introspectTextField { field in
+                if focus {
+                    field.becomeFirstResponder()
+                    focus = false
+                }
+            }
         }
         
         Spacer()

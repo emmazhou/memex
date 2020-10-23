@@ -12,6 +12,9 @@ struct MessageView: View {
 
     @State var message: MemexMessage
 
+    @Binding var inputFieldFocused: Bool
+    @Binding var editFieldFocused: Bool
+    
     @Binding var typingMessage: String
     @Binding var editingMessage: MemexMessage?
     @Binding var editingTime: Date?
@@ -53,12 +56,14 @@ struct MessageView: View {
                 let impact = UIImpactFeedbackGenerator(style: .light)
                 impact.impactOccurred()
                 typingMessage = message.text
+                inputFieldFocused = true
             }
             .contextMenu {
                 Button(action: {
                     editingMessage = message
                     editingTime = nil
                     editingText = memex.getTextAndComment(message)
+                    editFieldFocused = true
                 }) {
                     Text("Edit text")
                     Spacer()

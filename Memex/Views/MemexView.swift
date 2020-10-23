@@ -10,6 +10,9 @@ import SwiftUI
 struct MemexView: View {
     @ObservedObject var memex = Memex.shared
 
+    @State var inputFieldFocused = false
+    @State var editFieldFocused = false
+
     @State var typingMessage = ""
     @State var editingMessage: MemexMessage? = nil
     @State var editingTime: Date? = nil
@@ -40,6 +43,8 @@ struct MemexView: View {
                             ForEach(messageList.messages) { message in
                                 MessageView(
                                     message: message,
+                                    inputFieldFocused: $inputFieldFocused,
+                                    editFieldFocused: $editFieldFocused,
                                     typingMessage: $typingMessage,
                                     editingMessage: $editingMessage,
                                     editingTime: $editingTime,
@@ -83,6 +88,7 @@ struct MemexView: View {
                 HStack {
                     if editingMessage != nil {
                         EditView(
+                            focus: $editFieldFocused,
                             editingMessage: $editingMessage,
                             editingTime: $editingTime,
                             editingText: $editingText
@@ -90,6 +96,7 @@ struct MemexView: View {
                     } else {
                         InputView(
                             scrollProxy: scrollProxy,
+                            focus: $inputFieldFocused,
                             typingMessage: $typingMessage
                         )
                     }

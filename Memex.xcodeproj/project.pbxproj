@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -15,8 +15,11 @@
 		C831EC0A253BDCFC00003546 /* EditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C831EC09253BDCFC00003546 /* EditView.swift */; };
 		C831EC0E253BDD2200003546 /* InputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C831EC0D253BDD2200003546 /* InputView.swift */; };
 		C831EC15253C043A00003546 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C831EC14253C043900003546 /* SettingsView.swift */; };
+		C831EC26253D283400003546 /* Memex.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C831EC23253D283400003546 /* Memex.xcdatamodeld */; };
+		C85956882542AF5C00908405 /* Introspect in Frameworks */ = {isa = PBXBuildFile; productRef = C85956872542AF5C00908405 /* Introspect */; };
 		C86EC68F25369F2E00005402 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C86EC68E25369F2E00005402 /* Assets.xcassets */; };
 		C8819BD02537A5500094B22F /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8819BCF2537A5500094B22F /* Util.swift */; };
+		C8F66EC2253D433600B5D395 /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F66EC1253D433600B5D395 /* Database.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,8 +33,10 @@
 		C831EC09253BDCFC00003546 /* EditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditView.swift; sourceTree = "<group>"; };
 		C831EC0D253BDD2200003546 /* InputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputView.swift; sourceTree = "<group>"; };
 		C831EC14253C043900003546 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		C831EC24253D283400003546 /* Memex.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Memex.xcdatamodel; sourceTree = "<group>"; };
 		C86EC68E25369F2E00005402 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C8819BCF2537A5500094B22F /* Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
+		C8F66EC1253D433600B5D395 /* Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -39,6 +44,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C85956882542AF5C00908405 /* Introspect in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -64,10 +70,12 @@
 		C8292A312533FB1D006E5A1F /* Memex */ = {
 			isa = PBXGroup;
 			children = (
-				C831EC04253BDC7100003546 /* Views */,
 				C8292A452533FC6D006E5A1F /* Main.swift */,
 				C8292A422533FC2F006E5A1F /* Memex.swift */,
 				C8819BCF2537A5500094B22F /* Util.swift */,
+				C831EC04253BDC7100003546 /* Views */,
+				C8F66EC1253D433600B5D395 /* Database.swift */,
+				C831EC23253D283400003546 /* Memex.xcdatamodeld */,
 				C8292A3B2533FB1F006E5A1F /* Info.plist */,
 				C86EC68E25369F2E00005402 /* Assets.xcassets */,
 			);
@@ -104,6 +112,7 @@
 			);
 			name = Memex;
 			packageProductDependencies = (
+				C85956872542AF5C00908405 /* Introspect */,
 			);
 			productName = Memex;
 			productReference = C8292A2F2533FB1D006E5A1F /* Memex.app */;
@@ -133,6 +142,7 @@
 			);
 			mainGroup = C8292A262533FB1D006E5A1F;
 			packageReferences = (
+				C85956862542AF5C00908405 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */,
 			);
 			productRefGroup = C8292A302533FB1D006E5A1F /* Products */;
 			projectDirPath = "";
@@ -160,12 +170,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				C831EC07253BDCC600003546 /* MessageView.swift in Sources */,
+				C8F66EC2253D433600B5D395 /* Database.swift in Sources */,
 				C8292A4A2533FC92006E5A1F /* MemexView.swift in Sources */,
 				C8292A432533FC2F006E5A1F /* Memex.swift in Sources */,
 				C831EC15253C043A00003546 /* SettingsView.swift in Sources */,
 				C831EC01253BD18D00003546 /* Styles.swift in Sources */,
 				C831EC0A253BDCFC00003546 /* EditView.swift in Sources */,
 				C831EC0E253BDD2200003546 /* InputView.swift in Sources */,
+				C831EC26253D283400003546 /* Memex.xcdatamodeld in Sources */,
 				C8292A462533FC6D006E5A1F /* Main.swift in Sources */,
 				C8819BD02537A5500094B22F /* Util.swift in Sources */,
 			);
@@ -296,7 +308,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = RZLVXECJZM;
 				ENABLE_PREVIEWS = YES;
@@ -319,7 +331,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = RZLVXECJZM;
 				ENABLE_PREVIEWS = YES;
@@ -358,6 +370,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		C85956862542AF5C00908405 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/siteline/SwiftUI-Introspect.git";
+			requirement = {
+				kind = exactVersion;
+				version = 0.0.6;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		C85956872542AF5C00908405 /* Introspect */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C85956862542AF5C00908405 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */;
+			productName = Introspect;
+		};
+/* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		C831EC23253D283400003546 /* Memex.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				C831EC24253D283400003546 /* Memex.xcdatamodel */,
+			);
+			currentVersion = C831EC24253D283400003546 /* Memex.xcdatamodel */;
+			path = Memex.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = C8292A272533FB1D006E5A1F /* Project object */;
 }
