@@ -25,4 +25,15 @@ class Util {
         formatter.dateStyle = .none
         return formatter.string(from: date)
     }
+    
+    static func timeToDate(hour: Int, minute: Int) -> Date? {
+        let today = Date()
+        var calendar = Calendar.current
+        calendar.timeZone = .current
+        var components = calendar.dateComponents([.year, .month, .day], from: today)
+        components.hour = hour
+        components.minute = minute
+        let userCalendar = Calendar(identifier: .gregorian)
+        return userCalendar.date(from: components)
+    }
 }
