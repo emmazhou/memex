@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 struct MemexMessage: Identifiable {
     var id = UUID()
@@ -158,12 +159,19 @@ class Memex: NSObject, ObservableObject {
         writeMessages(messages: flatMessages)
     }
     
-    func deleteOldMessages() {
+    func deletePreviousMessages(_ fromMessage: MemexMessage) {
         var flatMessages = flattenMessages()
         flatMessages.removeAll { (message) -> Bool in
-            return message.time.timeIntervalSinceNow < -604800 // seconds in a week
+            return message.time < fromMessage.time
         }
         writeMessages(messages: flatMessages)
+    }
+    
+    func countPreviousMessages(_ fromMessage: MemexMessage) -> Int {
+        let flatMessages = flattenMessages()
+        return flatMessages.filter { (message) in
+            return message.time < fromMessage.time
+        }.count
     }
         
     // MARK: Serialize / Deserialize

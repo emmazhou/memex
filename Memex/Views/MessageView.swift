@@ -22,6 +22,7 @@ struct MessageView: View {
     
     @Binding var messageToDelete: MemexMessage?
     @Binding var showDeleteConfirmation: Bool
+    @Binding var isDeletingAllPrevious: Bool
 
     var body: some View {
         HStack {
@@ -88,10 +89,25 @@ struct MessageView: View {
                     editingText = nil
                     messageToDelete = message
                     showDeleteConfirmation = true
+                    isDeletingAllPrevious = false
                 }) {
-                    Text("Delete")
+                    Text("Delete message")
                     Spacer()
                     Image(systemName: "trash")
+                        .imageScale(.large)
+                }
+                
+                Button(action: {
+                    editingMessage = nil
+                    editingTime = nil
+                    editingText = nil
+                    messageToDelete = message
+                    showDeleteConfirmation = true
+                    isDeletingAllPrevious = true
+                }) {
+                    Text("Delete all previous")
+                    Spacer()
+                    Image(systemName: "arrow.up.bin")
                         .imageScale(.large)
                 }
             }

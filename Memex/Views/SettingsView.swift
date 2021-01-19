@@ -101,36 +101,9 @@ struct SettingsViewInner: View {
                     }
                     .padding(10)
                     .foregroundColor(.white)
-                    .background(Styles.midGradient)
-                    .cornerRadius(10)
-                    
-                    Button(action: {
-                        showAlert = true
-                    }) {
-                        Image(systemName: "trash")
-                            .imageScale(.medium)
-                            .foregroundColor(.white)
-                        Text("Delete older")
-                            .font(.system(size: 16.0, weight: .semibold, design: .default))
-                    }
-                    .padding(10)
-                    .foregroundColor(.white)
                     .background(Styles.coolGradient)
                     .cornerRadius(10)
-                    .alert(isPresented: $showAlert) {
-                        Alert(
-                            title: Text("Delete older messages?"),
-                            message: Text("This will delete all messages older than 1 week"),
-                            primaryButton: .default(Text("Cancel"), action: {
-                                showAlert = false
-                            }),
-                            secondaryButton: .default(Text("Delete"), action: {
-                                memex.deleteOldMessages()
-                                showAlert = false
-                            })
-                        )
-                    }
-                    
+                                        
                     Spacer()
                 }
                 .padding(.top, 5)

@@ -20,6 +20,7 @@ struct MemexView: View {
     
     @State var messageToDelete: MemexMessage? = nil
     @State var showDeleteConfirmation = false
+    @State var isDeletingAllPrevious = false
     
     init() {
         UINavigationBar.appearance().largeTitleTextAttributes = [
@@ -50,7 +51,8 @@ struct MemexView: View {
                                     editingTime: $editingTime,
                                     editingText: $editingText,
                                     messageToDelete: $messageToDelete,
-                                    showDeleteConfirmation: $showDeleteConfirmation
+                                    showDeleteConfirmation: $showDeleteConfirmation,
+                                    isDeletingAllPrevious: $isDeletingAllPrevious
                                 )
                             }
                         }
@@ -70,19 +72,33 @@ struct MemexView: View {
                     }
                 }
                 .alert(isPresented: $showDeleteConfirmation) {
-                    Alert(
-                        title: Text("Delete message?"),
-                        message: Text(memex.getTextAndComment(messageToDelete!)),
-                        primaryButton: .default(Text("Cancel"), action: {
-                            messageToDelete = nil
-                            showDeleteConfirmation = false
-                        }),
-                        secondaryButton: .default(Text("Delete"), action: {
-                            memex.deleteMessage(uuid: messageToDelete!.id)
-                            messageToDelete = nil
-                            showDeleteConfirmation = false
-                        })
-                    )
+                    if isDeletingAllPrevious {
+                        return Alert(
+                            title: Text("Delete all previous messages?"),
+                            message: Text("This will delete \(memex.countPreviousMessages(messageToDelete!)) messages."),
+                            primaryButton: .default(Text("Cancel"), action: {
+                                showDeleteConfirmation = false
+                            }),
+                            secondaryButton: .default(Text("Delete"), action: {
+                                memex.deletePreviousMessages(messageToDelete!)
+                                showDeleteConfirmation = false
+                            })
+                        )
+                    } else {
+                        return Alert(
+                            title: Text("Delete message?"),
+                            message: Text(memex.getTextAndComment(messageToDelete!)),
+                            primaryButton: .default(Text("Cancel"), action: {
+                                messageToDelete = nil
+                                showDeleteConfirmation = false
+                            }),
+                            secondaryButton: .default(Text("Delete"), action: {
+                                memex.deleteMessage(uuid: messageToDelete!.id)
+                                messageToDelete = nil
+                                showDeleteConfirmation = false
+                            })
+                        )
+                    }
                 }
                 
                 HStack {
