@@ -125,10 +125,12 @@ struct MemexView: View {
                 dismissKeyboard()
             })
             .navigationBarTitle("Memex")
-            .navigationBarItems(trailing:
-                NavigationLink(destination: SettingsView()) {
-                    Image(systemName: "gear")
-                        .font(.system(size: 24.0, weight: .black, design: .default))
+            .navigationBarItems(
+                trailing: NavigationLink(destination: SettingsView().onAppear {
+                    dismissKeyboard()
+                }) {
+                    Image(systemName: "gearshape.2.fill")
+                        .font(.system(size: 20.0, weight: .semibold, design: .default))
                 }
             )
         }

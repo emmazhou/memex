@@ -20,6 +20,8 @@ struct SettingsViewInner: View {
     @ObservedObject var memex = Memex.shared
     @ObservedObject var database = Database.shared
     
+    @AppStorage("showRelativeTime") var showRelativeTime = false
+    
     @State var scrollProxy: ScrollViewProxy
     @State var newVerb: String = ""
     @State var showAlert = false
@@ -30,6 +32,20 @@ struct SettingsViewInner: View {
     var body: some View {
         ScrollView {
             VStack {
+                HStack {
+                    Text("Appearance")
+                        .font(.system(size: 20.0, weight: .semibold, design: .default))
+                    Spacer()
+                }
+                .padding(.bottom, 5)
+                
+                Toggle(isOn: $showRelativeTime) {
+                    Text("Show relative times")
+                        .foregroundColor(Styles.textForeground)
+                }
+                .tint(Styles.sky)
+                .padding(.bottom, 20)
+                    
                 HStack {
                     Text("Vocabulary")
                         .font(.system(size: 20.0, weight: .semibold, design: .default))
@@ -186,7 +202,7 @@ struct MessageTypesView: View {
                             Button(action: {
                                 database.addIntervalNotification(verb: messageType.verb!, interval: 600)
                             }) {
-                                Text("Start poll")
+                                Text("Start timer")
                                 Spacer()
                                 Image(systemName: "timer")
                                     .imageScale(.large)
@@ -195,7 +211,7 @@ struct MessageTypesView: View {
                             Button(action: {
                                 database.addCalendarNotification(verb: messageType.verb!, hour: 10, minute: 0)
                             }) {
-                                Text("Add notification")
+                                Text("Schedule notification")
                                 Spacer()
                                 Image(systemName: "clock")
                                     .imageScale(.large)
@@ -265,7 +281,7 @@ struct PollsView: View {
         if notifications.count > 0 {
             VStack {
                 HStack {
-                    Text("Polls")
+                    Text("Poll Timers")
                         .font(.system(size: 20.0, weight: .semibold, design: .default))
                     Spacer()
                 }
@@ -361,7 +377,7 @@ struct NotificationsView: View {
         if notifications.count > 0 {
             VStack {
                 HStack {
-                    Text("Notifications")
+                    Text("Daily Notifications")
                         .font(.system(size: 20.0, weight: .semibold, design: .default))
                     Spacer()
                 }

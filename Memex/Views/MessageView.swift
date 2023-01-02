@@ -10,7 +10,22 @@ import SwiftUI
 struct MessageView: View {
     @ObservedObject var memex = Memex.shared
 
+    @AppStorage("showRelativeTime") var showRelativeTime = false
+    
     @State var message: MemexMessage
+    @State var relDateText = ""
+
+    let timer = Timer.publish(every: 0.5, on: .main, in: .common).autoconnect()
+    var relDate: Date {
+        let comps = Calendar.current.dateComponents([.second, .minute, .hour, .day, .month, .year], from: message.time)
+        return Calendar.current.date(from: comps)!
+    }
+    let rFormatter: RelativeDateTimeFormatter = {
+        let formatter = RelativeDateTimeFormatter()
+        formatter.dateTimeStyle = .numeric
+        formatter.unitsStyle = .abbreviated
+        return formatter
+    }()
 
     @Binding var inputFieldFocused: Bool
     @Binding var editFieldFocused: Bool
@@ -26,13 +41,25 @@ struct MessageView: View {
 
     var body: some View {
         HStack {
-            HStack {
-                Spacer()
-                Text(Util.formatTime(date: message.time))
-                    .font(.system(size: 12.0, weight: .semibold, design: .default))
-                    .foregroundColor(Color(UIColor.lightGray))
+            if showRelativeTime {
+                HStack {
+                    Spacer()
+                    Text(relDateText)
+                        .onReceive(timer) { _ in
+                            self.relDateText = rFormatter.string(for: relDate)!
+                        }
+                        .font(.system(size: 12.0, weight: .semibold, design: .default))
+                        .foregroundColor(Color(UIColor.lightGray))
+                        .multilineTextAlignment(.trailing)
+                }.frame(width: 80)
+            } else {
+                HStack {
+                    Spacer()
+                        Text(Util.formatTime(date: message.time))
+                            .font(.system(size: 12.0, weight: .semibold, design: .default))
+                            .foregroundColor(Color(UIColor.lightGray))
+                }.frame(width: 65)
             }
-            .frame(width: 65)
 
             Spacer(minLength: 10)
             
