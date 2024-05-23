@@ -10,6 +10,8 @@ import SwiftUI
 struct MemexView: View {
     @ObservedObject var memex = Memex.shared
 
+    @State private var lastMessageID = UUID()
+
     @State var inputFieldFocused = false
     @State var editFieldFocused = false
 
@@ -40,6 +42,7 @@ struct MemexView: View {
                             Text(Util.formatDate(date: messageList.date))
                                 .font(.system(size: 12.0, weight: .semibold, design: .default))
                                 .foregroundColor(Color(UIColor.lightGray))
+                                .padding(.top, 5)
                             
                             ForEach(messageList.messages) { message in
                                 MessageView(
@@ -54,15 +57,13 @@ struct MemexView: View {
                                     showDeleteConfirmation: $showDeleteConfirmation,
                                     isDeletingAllPrevious: $isDeletingAllPrevious
                                 )
+                                .padding(.bottom, 5)
                             }
                         }
-                        .padding(.bottom, 10)
                     }
-                    .onAppear {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
-                            withAnimation {
-                                scrollProxy.scrollTo(memex.lastMessageId(), anchor: .bottom)
-                            }
+                    .onChange(of: lastMessageID) { newValue in
+                        withAnimation {
+                            scrollProxy.scrollTo(newValue, anchor: .bottom)
                         }
                     }
                 }
@@ -131,6 +132,22 @@ struct MemexView: View {
                 }) {
                     Image(systemName: "gearshape.2.fill")
                         .font(.system(size: 20.0, weight: .semibold, design: .default))
+                }
+            )
+            .onReceive(memex.$messagesByDate) { _ in
+                if let lastMessage = memex.messagesByDate.last?.messages.last {
+                    lastMessageID = lastMessage.id
+                }
+            }
+            .overlay(
+                VStack {
+                    Spacer()
+                    HStack {
+                        Spacer()
+                        FABView()
+                            .padding(.bottom, 120)
+                            .padding(.trailing, 10)
+                    }
                 }
             )
         }

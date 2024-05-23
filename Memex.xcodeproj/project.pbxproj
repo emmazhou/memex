@@ -3,10 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B53867792BFEEFA30086121A /* FABView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B53867782BFEEFA30086121A /* FABView.swift */; };
 		C8292A432533FC2F006E5A1F /* Memex.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8292A422533FC2F006E5A1F /* Memex.swift */; };
 		C8292A462533FC6D006E5A1F /* Main.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8292A452533FC6D006E5A1F /* Main.swift */; };
 		C8292A4A2533FC92006E5A1F /* MemexView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8292A492533FC92006E5A1F /* MemexView.swift */; };
@@ -23,6 +24,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B53867782BFEEFA30086121A /* FABView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FABView.swift; sourceTree = "<group>"; };
 		C8292A2F2533FB1D006E5A1F /* Memex.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Memex.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C8292A3B2533FB1F006E5A1F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C8292A422533FC2F006E5A1F /* Memex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Memex.swift; sourceTree = "<group>"; };
@@ -93,6 +95,7 @@
 				C831EC0D253BDD2200003546 /* InputView.swift */,
 				C831EC14253C043900003546 /* SettingsView.swift */,
 				C831EC00253BD18D00003546 /* Styles.swift */,
+				B53867782BFEEFA30086121A /* FABView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -126,8 +129,9 @@
 		C8292A272533FB1D006E5A1F /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 1200;
-				LastUpgradeCheck = 1200;
+				LastUpgradeCheck = 1430;
 				TargetAttributes = {
 					C8292A2E2533FB1D006E5A1F = {
 						CreatedOnToolsVersion = 12.0.1;
@@ -171,6 +175,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B53867792BFEEFA30086121A /* FABView.swift in Sources */,
 				C831EC07253BDCC600003546 /* MessageView.swift in Sources */,
 				C8F66EC2253D433600B5D395 /* Database.swift in Sources */,
 				C8292A4A2533FC92006E5A1F /* MemexView.swift in Sources */,
@@ -311,7 +316,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Memex/Memex.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 13;
+				CURRENT_PROJECT_VERSION = 18;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = RZLVXECJZM;
 				ENABLE_PREVIEWS = YES;
@@ -335,7 +340,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Memex/Memex.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 13;
+				CURRENT_PROJECT_VERSION = 18;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = RZLVXECJZM;
 				ENABLE_PREVIEWS = YES;

@@ -8,14 +8,14 @@
 import Foundation
 import SwiftUI
 
-struct MemexMessage: Identifiable {
+struct MemexMessage: Identifiable, Equatable {
     var id = UUID()
     var time: Date
     var text: String
     var comment: String?
 }
 
-struct MemexMessageList: Identifiable {
+struct MemexMessageList: Identifiable, Equatable {
     var id = UUID()
     var date: Date
     var messages: [MemexMessage]
